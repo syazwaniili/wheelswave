@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WheelsWave</string>
+        <string name="logout">logout</string>
+
+        <!-- TODO: Remove or change this placeholder text -->
+        <string name="username">Username</string>
+        <string name="password">Password</string>
+</resources>

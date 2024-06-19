@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="50dp"
+    android:alignmentMode="alignBounds"
+    android:columnCount="2"
+    android:columnOrderPreserved="false"
+    android:useDefaultMargins="true">
+
+    <TextView
+        android:id="@+id/tvManuf"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal"
+        android:text="Brand"
+        android:textSize="32dip" />
+
+    <TextView
+        android:id="@+id/tvModel"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal"
+        android:text="Model"
+        android:textSize="32dip" />
+
+    <TextView
+        android:id="@+id/tvYear"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center"
+        android:text="Year"
+        android:textSize="16dip" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="Category:" />
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:text="Category" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="Seats:" />
+
+            <TextView
+                android:id="@+id/tvSeats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:text="Seats" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="Mileage:" />
+
+            <TextView
+                android:id="@+id/tvMileage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:text="Mileage" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="Price:" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:text="Price" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="Status:" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:text="Status" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="Image:" />
+
+            <TextView
+                android:id="@+id/tvImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:text="Image" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</GridLayout>
