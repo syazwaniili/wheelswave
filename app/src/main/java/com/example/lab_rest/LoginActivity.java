@@ -26,6 +26,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // add comment
     private EditText edtUsername;
     private EditText edtPassword;
 
