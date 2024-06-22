@@ -109,6 +109,8 @@ public class CarDetailsActivity extends AppCompatActivity {
 
     }
 
+    // clear session
+
     public void clearSessionAndRedirect() {
         // clear the shared preferences
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
