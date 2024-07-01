@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CarDetailsActivity extends AppCompatActivity {
-
     private CarService carService;
 
     @Override
@@ -39,90 +39,128 @@ public class CarDetailsActivity extends AppCompatActivity {
             return insets;
         });
 
-        // retrieve car details based on selected id
+        Log.d("CarDetailsActivity", "onCreate called");
 
-        // get car id sent by CarListActivity, -1 if not found
+        // Retrieve car details based on selected id
         Intent intent = getIntent();
         int carId = intent.getIntExtra("car_id", -1);
+        Log.d("CarDetailsActivity", "Received car_id: " + carId);
 
-        // get user info from SharedPreferences
+        // Get user info from SharedPreferences
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         User user = spm.getUser();
         String token = user.getToken();
+        Log.d("CarDetailsActivity", "User token: " + token);
 
-        // get car service instance
+        // Get car service instance
         carService = ApiUtils.getCarService();
 
-        // execute the API query. send the token and car id
+        // Execute the API query to get car details
         carService.getCar(token, carId).enqueue(new Callback<Car>() {
-
             @Override
             public void onResponse(Call<Car> call, Response<Car> response) {
-                // for debug purpose
-                Log.d("MyApp:", "Response: " + response.raw().toString());
-
-                if (response.code() == 200) {
-                    // server return success
-
-                    // get car object from response
+                if (response.isSuccessful()) {
                     Car car = response.body();
 
-                    // get references to the view elements
-                    TextView tvCategory = findViewById(R.id.tvCategory);
-                    TextView tvManuf = findViewById(R.id.tvManuf);
-                    TextView tvModel = findViewById(R.id.tvModel);
-                    TextView tvYear = findViewById(R.id.tvYear);
-                    TextView tvMileage = findViewById(R.id.tvMileage);
-                    TextView tvImage = findViewById(R.id.tvImage);
-                    TextView tvStatus = findViewById(R.id.tvStatus);
-                    TextView tvSeats = findViewById(R.id.tvSeats);
-                    TextView tvPrice = findViewById(R.id.tvPrice);
+                    // Populate UI with car details
+                    populateCarDetails(car);
 
-                    // set values
-                    tvCategory.setText(car.getCategory());
-                    tvManuf.setText(car.getManufacturer());
-                    tvModel.setText(car.getModel());
-                    tvYear.setText(car.getYear());
-                    tvMileage.setText(car.getMileage());
-                    tvImage.setText(car.getImage());
-                    tvStatus.setText(car.getStatus());
-                    tvSeats.setText(car.getSeats());
-                    tvPrice.setText(String.valueOf(car.getPrice()));
-                }
-                else if (response.code() == 401) {
-                    // unauthorized error. invalid token, ask user to relogin
-                    Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
-                    clearSessionAndRedirect();
-                }
-                else {
-                    // server return other error
-                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
-                    Log.e("MyApp: ", response.toString());
+                    // Add new car
+                    addNewCar(token);
+                } else {
+                    handleErrorResponse(response.code(), response.message());
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<Car> call, @NonNull Throwable t) {
-                Toast.makeText(null, "Error connecting", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<Car> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error connecting", Toast.LENGTH_LONG).show();
+                Log.e("CarDetailsActivity", "Error: " + t.getMessage());
             }
         });
-
     }
 
-    // clear session
+    private void populateCarDetails(Car car) {
+        // Get references to the view elements
+        TextView tvCategory = findViewById(R.id.tvCategory);
+        TextView tvManufacturer = findViewById(R.id.tvManufacturer);
+        TextView tvModel = findViewById(R.id.tvModel);
+        TextView tvYear = findViewById(R.id.tvYear);
+        TextView tvMileage = findViewById(R.id.tvMileage);
+        TextView tvImage = findViewById(R.id.tvImage);
+        TextView tvStatus = findViewById(R.id.tvStatus);
+        TextView tvSeats = findViewById(R.id.tvSeats);
+        TextView tvPrice = findViewById(R.id.tvPrice);
+
+        // Set values
+        tvCategory.setText(car.getCategory());
+        tvManufacturer.setText(car.getManufacturer());
+        tvModel.setText(car.getModel());
+        tvYear.setText(car.getYear());
+        tvMileage.setText(String.valueOf(car.getMileage()));
+        tvImage.setText(car.getImage());
+        tvStatus.setText(car.getStatus());
+        tvSeats.setText(car.getSeats());
+        tvPrice.setText(String.valueOf(car.getPrice()));
+    }
+
+    private void addNewCar(String token) {
+        String category = "Sedan";
+        String seats = "4";
+        double price = 25000.0;
+        int mileage = 15000;
+        String manufacturer = "Toyota";
+        String model = "Supra";
+        String year = "2019";
+        String status = "Available";
+        String image = "image_url";
+
+        carService.addCar(token, category, seats, price, mileage, manufacturer, model, year, status, image)
+                .enqueue(new Callback<Car>() {
+                    @Override
+                    public void onResponse(Call<Car> call, Response<Car> response) {
+                        if (response.isSuccessful()) {
+                            Car car = response.body();
+                            // Handle the successful response
+                            Log.d("CarDetailsActivity", "Car added successfully: " + car.getId());
+                        } else {
+                            // Handle the error response
+                            handleErrorResponse(response.code(), response.message());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Car> call, Throwable t) {
+                        // Handle the failure response
+                        Toast.makeText(getApplicationContext(), "Error adding car", Toast.LENGTH_LONG).show();
+                        Log.e("CarDetailsActivity", "Error: " + t.getMessage());
+                    }
+                });
+    }
+
+    private void handleErrorResponse(int code, String message) {
+        if (code == 401) {
+            // Unauthorized error. Invalid token, ask user to relogin
+            Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
+            clearSessionAndRedirect();
+        } else {
+            // Server returned other error
+            Toast.makeText(getApplicationContext(), "Error: " + message, Toast.LENGTH_LONG).show();
+            Log.e("CarDetailsActivity", "Error: " + message);
+        }
+    }
 
     public void clearSessionAndRedirect() {
-        // clear the shared preferences
+        Log.d("CarDetailsActivity", "Clearing session and redirecting to login");
+        // Clear the shared preferences
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         spm.logout();
 
-        // terminate this activity
+        // Terminate this activity
         finish();
 
-        // forward to Login Page
+        // Forward to Login Page
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-
     }
-
 }

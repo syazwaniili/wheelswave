@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="2dp"
-    android:padding="5dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/tvCategory"
@@ -16,7 +16,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvManuf"
+        android:id="@+id/tvManufacturer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvCategory"
@@ -28,7 +28,7 @@
         android:id="@+id/tvModel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvManuf"
+        android:layout_below="@+id/tvManufacturer"
         android:text="Car Model"
         android:textSize="17sp"
         android:textStyle="bold" />
@@ -68,4 +68,5 @@
         android:text="Car Price"
         android:textSize="17sp"
         android:textStyle="bold" />
+
 </RelativeLayout>

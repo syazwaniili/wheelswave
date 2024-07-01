@@ -3,32 +3,25 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="50dp"
+    android:layout_marginTop="40dp"
     android:alignmentMode="alignBounds"
     android:columnCount="2"
     android:columnOrderPreserved="false"
     android:useDefaultMargins="true">
 
     <TextView
-        android:id="@+id/tvManufacturer"
         android:layout_columnSpan="2"
         android:layout_gravity="center_horizontal"
-        android:text="Brand"
+        android:text="Add New Car"
         android:textSize="32dip" />
 
     <TextView
-        android:id="@+id/tvModel"
-        android:layout_columnSpan="2"
-        android:layout_gravity="center_horizontal"
-        android:text="Model"
-        android:textSize="32dip" />
-
-    <TextView
-        android:id="@+id/tvYear"
         android:layout_columnSpan="2"
         android:layout_gravity="center"
-        android:text="Year"
+        android:text="Enter car information"
         android:textSize="16dip" />
+
+
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -46,12 +39,12 @@
                 android:layout_weight="0.25"
                 android:text="Category:" />
 
-            <TextView
-                android:id="@+id/tvCategory"
+            <EditText
+                android:id="@+id/txtCategory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:text="Category" />
+                android:inputType="text"/>
         </LinearLayout>
 
         <LinearLayout
@@ -65,31 +58,13 @@
                 android:layout_weight="0.25"
                 android:text="Seats:" />
 
-            <TextView
-                android:id="@+id/tvSeats"
+            <EditText
+                android:id="@+id/txtSeats"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:text="Seats" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Mileage:" />
-
-            <TextView
-                android:id="@+id/tvMileage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:text="Mileage" />
+                android:inputType="number"
+                android:lines="2" />
         </LinearLayout>
 
         <LinearLayout
@@ -103,12 +78,12 @@
                 android:layout_weight="0.25"
                 android:text="Price:" />
 
-            <TextView
-                android:id="@+id/tvPrice"
+            <EditText
+                android:id="@+id/txtPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:text="Price" />
+                android:inputType="number"/>
         </LinearLayout>
 
         <LinearLayout
@@ -120,14 +95,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
-                android:text="Status:" />
+                android:text="Mileage:" />
 
-            <TextView
-                android:id="@+id/tvStatus"
+            <EditText
+                android:id="@+id/txtMileage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:text="Status" />
+                android:inputType="number"/>
         </LinearLayout>
 
         <LinearLayout
@@ -139,14 +114,88 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
-                android:text="Image:" />
+                android:text="Manufacturer:" />
 
-            <TextView
-                android:id="@+id/tvImage"
+            <EditText
+                android:id="@+id/txtManufacturer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:text="Image" />
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="Model:" />
+
+            <EditText
+                android:id="@+id/txtModel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="Year:" />
+
+            <EditText
+                android:id="@+id/txtYear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageViewCar"
+                android:layout_width="200dp"
+                android:layout_height="140dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_gravity="center"
+                android:contentDescription="Car Image"
+                android:src="@drawable/wavebg" />
+
+            <Button
+                android:id="@+id/btnSelectImage"
+                android:layout_width="204dp"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_gravity="end|center"
+                android:layout_marginLeft="0dp"
+                android:text="Select Image" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="addNewCar"
+                android:text="Add Car" />
 
         </LinearLayout>
 

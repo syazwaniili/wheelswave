@@ -20,10 +20,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
 
         public TextView tvCategory;
-        public TextView tvManuf;
+        public TextView tvManufacturer;
         public TextView tvModel;
         public TextView tvYear;
-
         public TextView tvImage;
         public TextView tvStatus;
         public TextView tvPrice;
@@ -31,7 +30,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             tvCategory = itemView.findViewById(R.id.tvCategory);
-            tvManuf = itemView.findViewById(R.id.tvManuf);
+            tvManufacturer = itemView.findViewById(R.id.tvManufacturer);
             tvModel = itemView.findViewById(R.id.tvModel);
             tvYear = itemView.findViewById(R.id.tvYear);
             tvImage = itemView.findViewById(R.id.tvImage);
@@ -80,7 +79,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
         // bind data to the view holder instance
         Car m = carListData.get(position);
         holder.tvCategory.setText(m.getCategory());
-        holder.tvManuf.setText(m.getManufacturer());
+        holder.tvManufacturer.setText(m.getManufacturer());
         holder.tvModel.setText(m.getModel());
         holder.tvYear.setText(m.getYear());
         holder.tvImage.setText(m.getImage());
@@ -104,6 +103,5 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
         }
         return null;
     }
-
-
 }
+
