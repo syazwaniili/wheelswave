@@ -37,4 +37,17 @@ public interface CarService {
 
     @DELETE("car/{id}")
     Call<DeleteResponse> deleteCar(@Header ("api-key") String apiKey, @Path("id") int id);
+
+    @FormUrlEncoded
+    @POST("book/{id}")
+    Call<Car> updateCar(@Header ("api-key") String apiKey,
+                        @Field("category") String category,
+                        @Field("seats") String seats,
+                        @Field("price") double price,
+                        @Field("mileage") int mileage,
+                        @Field("manufacturer") String manufacturer,
+                        @Field("model") String model,
+                        @Field("year") String year,
+                        @Field("image") String image,
+                        @Field("status") String status);
 }

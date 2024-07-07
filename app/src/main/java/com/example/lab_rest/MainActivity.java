@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void carClicked(View view) {
+    public void carListClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), CarListActivity.class);
         startActivity(intent);
     }
