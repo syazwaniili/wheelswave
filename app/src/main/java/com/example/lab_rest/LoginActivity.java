@@ -70,13 +70,19 @@ public class LoginActivity extends AppCompatActivity {
                     if (user != null && user.getToken() != null) {
                         Log.d("LoginActivity", "User Details: " + user.toString());
                         displayToast("Login successful");
-                        displayToast("Token: " + user.getToken());
 
-                        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
-                        spm.storeUser(user);
+                        SharedPrefManager.getInstance(getApplicationContext()).storeUser(user);
+
+                        // Redirect based on user role
+                        Intent intent;
+                        if ("admin".equals(user.getRole()) || "superadmin".equals(user.getRole())) {
+                            intent = new Intent(getApplicationContext(), MainActivity.class);
+                        } else {
+                            intent = new Intent(getApplicationContext(), CustomerMainActivity.class);
+                        }
 
                         finish();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(intent);
                     } else {
                         displayToast("Login error");
                     }

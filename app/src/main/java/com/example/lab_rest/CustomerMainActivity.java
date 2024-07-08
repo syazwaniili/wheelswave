@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.lab_rest.model.User;
 import com.example.lab_rest.sharedpref.SharedPrefManager;
 
-public class MainActivity extends AppCompatActivity {
+public class CustomerMainActivity extends AppCompatActivity {
 
     private TextView tvHello;
 
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.cust_activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             if (user.getUsername() != null) {
                 tvHello.setText("Hello " + user.getUsername());
             } else {
-                tvHello.setText("Hello Admin!");
+                tvHello.setText("Hello User!");
             }
         }
     }
@@ -55,16 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void carListClicked(View view) {
-        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
-        User user = spm.getUser();
-        Intent intent;
-
-        if ("admin".equals(user.getRole()) || "superadmin".equals(user.getRole())) {
-            intent = new Intent(getApplicationContext(), CarListActivity.class);
-        } else {
-            intent = new Intent(getApplicationContext(), CustomerCarListActivity.class);
-        }
-
+        Intent intent = new Intent(getApplicationContext(), CustomerCarListActivity.class);
         startActivity(intent);
     }
 }

@@ -17,7 +17,7 @@ public class SharedPrefManager {
     private static Context mCtx;
 
     public SharedPrefManager(Context context) {
-        mCtx = context;
+        mCtx = context.getApplicationContext(); // Use application context to avoid memory leaks
     }
 
     public static synchronized SharedPrefManager getInstance(Context context) {
