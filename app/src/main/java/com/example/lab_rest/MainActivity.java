@@ -30,42 +30,41 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // get references
         tvHello = findViewById(R.id.tvHello);
 
-        // greet the user
-        // if the user is not logged in we will directly them to LoginActivity
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         if (!spm.isLoggedIn()) {
             finish();
-
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-        else {
+            startActivity(new Intent(this, LoginActivity.class));
+        } else {
             User user = spm.getUser();
-            tvHello.setText("Hello " + user.getUsername());
+            if (user.getUsername() != null) {
+                tvHello.setText("Hello " + user.getUsername());
+            } else {
+                tvHello.setText("Hello!");
+            }
         }
-        
     }
 
     public void logoutClicked(View view) {
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         spm.logout();
-
         Toast.makeText(getApplicationContext(), "You have successfully logged out.", Toast.LENGTH_LONG).show();
-
         finish();
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     public void carListClicked(View view) {
-        Intent intent = new Intent(getApplicationContext(), CarListActivity.class);
+        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
+        User user = spm.getUser();
+        Intent intent;
+
+        if ("admin".equals(user.getRole()) || "superadmin".equals(user.getRole())) {
+            intent = new Intent(getApplicationContext(), CarListActivity.class);
+        } else {
+            intent = new Intent(getApplicationContext(), CustomerCarListActivity.class);
+        }
+
         startActivity(intent);
     }
-
-
-
 }

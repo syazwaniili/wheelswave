@@ -10,7 +10,7 @@
     android:gravity="center"
     android:padding="20sp"
     android:background="@drawable/wavebg"
-    tools:context=".MainActivity"
+    tools:context=".LoginActivity"
     android:id="@+id/login">
 
     <androidx.constraintlayout.widget.ConstraintLayout
