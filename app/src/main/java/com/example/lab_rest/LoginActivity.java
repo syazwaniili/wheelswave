@@ -26,6 +26,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // add comment
     private EditText edtUsername;
     private EditText edtPassword;
 
@@ -40,21 +41,41 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
+        // get references to form elements
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
     }
 
+    /**
+     * Login button action handler
+     */
     public void loginClicked(View view) {
+
+        // get username and password entered by user
         String username = edtUsername.getText().toString();
         String password = edtPassword.getText().toString();
 
+        // validate form, make sure it is not empty
         if (validateLogin(username, password)) {
+            // if not empty, login using REST API
             doLogin(username, password);
         }
     }
 
+    /**
+     * Call REST API to login
+     *
+     * @param username username
+     * @param password password
+     */
     private void doLogin(String username, String password) {
+
+        // implement this
+        // get UserService instance
         UserService userService = ApiUtils.getUserService();
+
+        // prepare the REST API call using the service interface
+        //Call<User> call = userService.login(username, password);
         Call<User> call;
         if (username.contains("@")) {
             call = userService.loginEmail(username, password);
@@ -62,15 +83,19 @@ public class LoginActivity extends AppCompatActivity {
             call = userService.login(username, password);
         }
 
+        // execute the REST API call
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()) { // code 200
+                    // parse response to POJO
                     User user = response.body();
                     if (user != null && user.getToken() != null) {
+                        // successful login
                         Log.d("LoginActivity", "User Details: " + user.toString());
                         displayToast("Login successful");
 
+                        // store value in Shared Preferences
                         SharedPrefManager.getInstance(getApplicationContext()).storeUser(user);
 
                         // Redirect based on user role
@@ -84,16 +109,18 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                         startActivity(intent);
                     } else {
+                        // server return success but no user info replied
                         displayToast("Login error");
                     }
-                } else {
+                } else { // other than 200
+                    // try to parse the response to FailLogin POJO
                     String errorResp = null;
                     try {
                         errorResp = response.errorBody().string();
                         FailLogin e = new Gson().fromJson(errorResp, FailLogin.class);
                         displayToast(e.getError().getMessage());
                     } catch (Exception e) {
-                        Log.e("LoginActivity:", e.toString());
+                        Log.e("LoginActivity:", e.toString());  // print error details to error log
                         displayToast("Error");
                     }
                 }
@@ -103,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<User> call, Throwable t) {
                 displayToast("Error connecting to server.");
                 displayToast(t.getMessage());
-                Log.e("LoginActivity:", t.toString());
+                Log.e("LoginActivity:", t.toString());  // print error details to error log
             }
         });
     }

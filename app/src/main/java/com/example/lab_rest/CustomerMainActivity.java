@@ -55,6 +55,7 @@ public class CustomerMainActivity extends AppCompatActivity {
     }
 
     public void carListClicked(View view) {
+        //forward user to CustomerCarListActivity
         Intent intent = new Intent(getApplicationContext(), CustomerCarListActivity.class);
         startActivity(intent);
     }
