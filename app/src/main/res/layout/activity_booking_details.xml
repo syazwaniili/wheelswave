@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvBookingID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Booking ID"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvPickup_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pickup Date" />
+
+    <TextView
+        android:id="@+id/tvReturn_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Return Date" />
+
+    <TextView
+        android:id="@+id/tvPickup_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pickup Location" />
+
+    <TextView
+        android:id="@+id/tvReturn_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Return Location" />
+
+    <TextView
+        android:id="@+id/tvBookingstatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Booking Status" />
+
+    <TextView
+        android:id="@+id/tvTotalprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Price" />
+
+    <TextView
+        android:id="@+id/tvUser_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User ID" />
+
+    <TextView
+        android:id="@+id/tvAdmin_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Admin ID" />
+
+    <TextView
+        android:id="@+id/tvCar_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Car ID" />
+
+</LinearLayout>

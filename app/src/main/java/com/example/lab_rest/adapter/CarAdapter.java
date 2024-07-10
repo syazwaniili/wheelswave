@@ -54,6 +54,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
     private List<Car> carListData;   // list of car objects
     private Context mContext;       // activity context
     private int currentPos;         // currently selected item (long press)
+
     public CarAdapter(Context context, List<Car> listData) {
         carListData = listData;
         mContext = context;

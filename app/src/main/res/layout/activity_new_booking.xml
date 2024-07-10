@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etPickupDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Pickup Date" />
+
+    <EditText
+        android:id="@+id/etReturnDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Return Date" />
+
+    <EditText
+        android:id="@+id/etPickupLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Pickup Location" />
+
+    <EditText
+        android:id="@+id/etReturnLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Return Location" />
+
+    <EditText
+        android:id="@+id/etBookingStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Booking Status" />
+
+    <EditText
+        android:id="@+id/etTotalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Total Price" />
+
+    <Button
+        android:id="@+id/btnSubmitBooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit" />
+</LinearLayout>
