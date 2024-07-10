@@ -24,7 +24,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="Book Car"
         android:onClick="floatingAddBookingClicked"
-        android:src="@drawable/baseline_add_24" />
+        android:src="@android:drawable/ic_media_play" />
 
 
 
