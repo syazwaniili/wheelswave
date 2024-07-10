@@ -24,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:text="Cars"
-        android:onClick="carListClicked" />
+        android:onClick="customerCarListClicked" />
 
     <Button
         android:id="@+id/btnLogout"

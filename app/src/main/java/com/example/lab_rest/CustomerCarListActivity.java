@@ -30,15 +30,15 @@ import retrofit2.Response;
 public class CustomerCarListActivity extends AppCompatActivity {
 
     private CarService carService;
-    private RecyclerView rvCarList;
+    private RecyclerView rvCustomerCarList;
     private CarAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_list);
+        setContentView(R.layout.customer_activity_car_list);
 
-        rvCarList = findViewById(R.id.rvCarList);
+        rvCustomerCarList = findViewById(R.id.rvCustomerCarList);
         updateRecyclerView();
     }
 
@@ -55,9 +55,9 @@ public class CustomerCarListActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Car> cars = response.body();
                     adapter = new CarAdapter(getApplicationContext(), cars);
-                    rvCarList.setAdapter(adapter);
-                    rvCarList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    rvCarList.addItemDecoration(new DividerItemDecoration(rvCarList.getContext(), DividerItemDecoration.VERTICAL));
+                    rvCustomerCarList.setAdapter(adapter);
+                    rvCustomerCarList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    rvCustomerCarList.addItemDecoration(new DividerItemDecoration(rvCustomerCarList.getContext(), DividerItemDecoration.VERTICAL));
                 } else {
                     Toast.makeText(getApplicationContext(), "Error fetching cars", Toast.LENGTH_LONG).show();
                     if (response.code() == 401) {
@@ -76,48 +76,7 @@ public class CustomerCarListActivity extends AppCompatActivity {
             }
         });
     }
-    /**
-     * Delete car record. Called by contextual menu "Delete"
-     * @param selectedCar - car selected by user
-     */
-    private void doDeleteCar(Car selectedCar) {
-        // get user info from SharedPreferences
-        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
-        User user = spm.getUser();
 
-        // prepare REST API call
-        CarService carService = ApiUtils.getCarService();
-        Call<DeleteResponse> call = carService.deleteCar(user.getToken(), selectedCar.getId());
-
-        // execute the call
-        call.enqueue(new Callback<DeleteResponse>() {
-            @Override
-            public void onResponse(Call<DeleteResponse> call, Response<DeleteResponse> response) {
-                if (response.code() == 200) {
-                    // 200 means OK
-                    displayAlert("Car successfully deleted");
-                    // update data in list view
-                    updateRecyclerView();
-                }
-                else if (response.code() == 401) {
-                    // invalid token, ask user to relogin
-                    Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
-                    clearSessionAndRedirect();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
-                    // server return other error
-                    Log.e("MyApp: ", response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DeleteResponse> call, Throwable t) {
-                displayAlert("Error [" + t.getMessage() + "]");
-                Log.e("MyApp:", t.getMessage());
-            }
-        });
-    }
     /**
      * Displaying an alert dialog with a single button
      * @param message - message to be displayed
@@ -151,7 +110,7 @@ public class CustomerCarListActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.car_context_menu, menu);
+        inflater.inflate(R.menu.customer_car_context_menu, menu);
     }
 
     @Override
@@ -162,10 +121,6 @@ public class CustomerCarListActivity extends AppCompatActivity {
         //user clicked details contextual menu
         if (item.getItemId() == R.id.menu_details) {
             doViewDetails(selectedCar);
-        }
-        else if (item.getItemId() == R.id.menu_delete) {
-            // user clicked the delete contextual menu
-            doDeleteCar(selectedCar);
         }
 
         return super.onContextItemSelected(item);

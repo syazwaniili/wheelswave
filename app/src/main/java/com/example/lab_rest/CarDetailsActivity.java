@@ -59,16 +59,45 @@ public class CarDetailsActivity extends AppCompatActivity {
         carService.getCar(token, carId).enqueue(new Callback<Car>() {
             @Override
             public void onResponse(Call<Car> call, Response<Car> response) {
-                if (response.isSuccessful()) {
+                Log.d("MyApp:", "Response: " + response.raw().toString());
+
+                if (response.code() == 200) {
+                    // server return success
+
+                    // get car object from response
                     Car car = response.body();
 
-                    // Populate UI with car details
-                    populateCarDetails(car);
+                    // Get references to the view elements
+                    TextView tvCategory = findViewById(R.id.tvCategory);
+                    TextView tvManufacturer = findViewById(R.id.tvManufacturer);
+                    TextView tvModel = findViewById(R.id.tvModel);
+                    TextView tvYear = findViewById(R.id.tvYear);
+                    TextView tvMileage = findViewById(R.id.tvMileage);
+                    TextView tvImage = findViewById(R.id.tvImage);
+                    TextView tvStatus = findViewById(R.id.tvStatus);
+                    TextView tvSeats = findViewById(R.id.tvSeats);
+                    TextView tvPrice = findViewById(R.id.tvPrice);
 
-                    // Add new car
-                    addNewCar(token);
-                } else {
-                    handleErrorResponse(response.code(), response.message());
+                    // Set values
+                    tvCategory.setText(car.getCategory());
+                    tvManufacturer.setText(car.getManufacturer());
+                    tvModel.setText(car.getModel());
+                    tvYear.setText(car.getYear());
+                    tvMileage.setText(String.valueOf(car.getMileage()));
+                    tvImage.setText(car.getImage());
+                    tvStatus.setText(car.getStatus());
+                    tvSeats.setText(car.getSeats());
+                    tvPrice.setText(String.valueOf(car.getPrice()));
+
+                } else if (response.code() == 401) {
+                    // unauthorized error. invalid token, ask user to relogin
+                    Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
+                    clearSessionAndRedirect();
+                }
+                else {
+                    // server return other error
+                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
+                    Log.e("MyApp: ", response.toString());
                 }
             }
 
@@ -80,7 +109,10 @@ public class CarDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void populateCarDetails(Car car) {
+
+
+
+    /*private void populateCarDetails(Car car) {
         // Get references to the view elements
         TextView tvCategory = findViewById(R.id.tvCategory);
         TextView tvManufacturer = findViewById(R.id.tvManufacturer);
@@ -102,18 +134,18 @@ public class CarDetailsActivity extends AppCompatActivity {
         tvStatus.setText(car.getStatus());
         tvSeats.setText(car.getSeats());
         tvPrice.setText(String.valueOf(car.getPrice()));
-    }
+    }*/
 
-    private void addNewCar(String token) {
-        String category = "Sedan";
-        String seats = "4";
-        double price = 25000.0;
-        int mileage = 15000;
-        String manufacturer = "Toyota";
-        String model = "Supra";
-        String year = "2019";
-        String status = "Available";
-        String image = "image_url";
+    /*private void addNewCar(String token) {
+        String category = "";
+        String seats = "";
+        double price = 0.0;
+        int mileage = 0;
+        String manufacturer = "";
+        String model = "";
+        String year = "";
+        String status = "";
+        String image = "";
 
         carService.addCar(token, category, seats, price, mileage, manufacturer, model, year, status, image)
                 .enqueue(new Callback<Car>() {
@@ -137,8 +169,9 @@ public class CarDetailsActivity extends AppCompatActivity {
                     }
                 });
     }
+*/
 
-    private void handleErrorResponse(int code, String message) {
+    /*private void handleErrorResponse(int code, String message) {
         if (code == 401) {
             // Unauthorized error. Invalid token, ask user to relogin
             Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
@@ -148,7 +181,7 @@ public class CarDetailsActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Error: " + message, Toast.LENGTH_LONG).show();
             Log.e("CarDetailsActivity", "Error: " + message);
         }
-    }
+    }*/
 
     public void clearSessionAndRedirect() {
         Log.d("CarDetailsActivity", "Clearing session and redirecting to login");
