@@ -192,7 +192,20 @@ public class CarListActivity extends AppCompatActivity {
             doDeleteCar(selectedCar);
         }
 
+         else if (item.getItemId() == R.id.menu_update) {
+            // user clicked the update contextual menu
+            doUpdateCar(selectedCar);
+        }
+
         return super.onContextItemSelected(item);
+    }
+
+    private void doUpdateCar(Car selectedCar) {
+        Log.d("My App:", "update car: " + selectedCar.toString());
+        //forward user to UpdateCarActivity, passing the selected car id
+        Intent intent = new Intent(getApplicationContext(), UpdateCarActivity.class);
+        intent.putExtra("car_id", selectedCar.getId());
+        startActivity(intent);
     }
 
     private void doViewDetails(Car selectedCar) {
