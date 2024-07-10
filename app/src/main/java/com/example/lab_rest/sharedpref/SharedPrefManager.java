@@ -7,7 +7,7 @@ import com.example.lab_rest.model.User;
 
 public class SharedPrefManager {
 
-    private static final String SHARED_PREF_NAME = "lab_rest";
+    private static final String SHARED_PREF_NAME = "wheelswavepref";
     private static final String KEY_ID = "key_id";
     private static final String KEY_USERNAME = "key_username";
     private static final String KEY_EMAIL = "key_email";
@@ -36,17 +36,19 @@ public class SharedPrefManager {
         editor.putString(KEY_TOKEN, user.getToken());
         editor.putString(KEY_ROLE, user.getRole());
         editor.apply();
+        editor.commit();
     }
 
     public User getUser() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return new User(
+        User user = new User(
                 sharedPreferences.getInt(KEY_ID, -1),
                 sharedPreferences.getString(KEY_USERNAME, null),
                 sharedPreferences.getString(KEY_EMAIL, null),
                 sharedPreferences.getString(KEY_TOKEN, null),
                 sharedPreferences.getString(KEY_ROLE, null)
         );
+        return user;
     }
 
     public void logout() {

@@ -13,7 +13,12 @@ public class User {
     private int is_active;
     private String secret;
 
-    public User(int anInt, String string, String string1, String string2, String string3) {
+    public User(int id, String username, String email, String token, String role) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.token = token;
+        this.role = role;
     }
 
     public int getId() {

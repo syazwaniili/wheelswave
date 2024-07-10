@@ -39,7 +39,7 @@ public interface CarService {
     Call<DeleteResponse> deleteCar(@Header ("api-key") String apiKey, @Path("id") int id);
 
     @FormUrlEncoded
-    @POST("book/{id}")
+    @POST("car/{id}")
     Call<Car> updateCar(@Header ("api-key") String apiKey,
                         @Field("category") String category,
                         @Field("seats") String seats,
