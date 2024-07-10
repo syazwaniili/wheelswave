@@ -38,7 +38,7 @@ import retrofit2.Response;
 
 public class UpdateCarActivity extends AppCompatActivity {
 
-    // form fields
+    // form fields  
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageViewCar;
     private EditText txtCategory;

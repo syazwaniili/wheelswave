@@ -73,7 +73,7 @@ public class CarListActivity extends AppCompatActivity {
                     //get list of car from response
                     List<Car> cars = response.body();
                     //initialize adapter
-                    adapter = new CarAdapter(getApplicationContext(), cars);
+                    adapter = new CarAdapter(getApplicationContext(), cars, true);
                     //set adapter to RV
                     rvCarList.setAdapter(adapter);
                     //set layout to rv

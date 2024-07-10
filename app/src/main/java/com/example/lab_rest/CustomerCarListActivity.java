@@ -54,7 +54,7 @@ public class CustomerCarListActivity extends AppCompatActivity {
             public void onResponse(Call<List<Car>> call, Response<List<Car>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Car> cars = response.body();
-                    adapter = new CarAdapter(getApplicationContext(), cars);
+                    adapter = new CarAdapter(getApplicationContext(), cars, false);
                     rvCustomerCarList.setAdapter(adapter);
                     rvCustomerCarList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     rvCustomerCarList.addItemDecoration(new DividerItemDecoration(rvCustomerCarList.getContext(), DividerItemDecoration.VERTICAL));
@@ -109,8 +109,8 @@ public class CustomerCarListActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.customer_car_context_menu, menu);
+        MenuInflater inflatercust = getMenuInflater();
+        inflatercust.inflate(R.menu.customer_car_context_menu, menu);
     }
 
     @Override
@@ -134,8 +134,8 @@ public class CustomerCarListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void floatingAddCarClicked(View view) {
-        Intent intent = new Intent(getApplicationContext(), NewCarActivity.class);
+    public void floatingAddBookingClicked(View view) {
+        Intent intent = new Intent(getApplicationContext(), NewBookingActivity.class);
         startActivity(intent);
     }
 }

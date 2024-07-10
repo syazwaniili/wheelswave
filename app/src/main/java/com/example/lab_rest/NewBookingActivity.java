@@ -50,6 +50,11 @@ public class NewBookingActivity extends AppCompatActivity {
                 addNewBooking();
             }
         });
+
+        Intent intent = getIntent();
+        int carId = intent.getIntExtra("car_id", -1);
+        // Use carId to set specific car details or pass it to the booking service
+
     }
 
     private void addNewBooking() {
@@ -77,12 +82,15 @@ public class NewBookingActivity extends AppCompatActivity {
         newBooking.setReturn_date(returnDate);
         newBooking.setPickup_location(etPickupLocation.getText().toString());
         newBooking.setReturn_location(etReturnLocation.getText().toString());
-        newBooking.setBooking_status(etBookingStatus.getText().toString());
+        newBooking.setBooking_status("new");
         newBooking.setTotalPrice(Double.parseDouble(etTotalPrice.getText().toString()));
         newBooking.setUser_id(user.getId());
+        newBooking.setCar_id(getIntent().getIntExtra("car_id", -1)); // Set the car ID
 
         bookingService = ApiUtils.getBookingService();
-        Call<Booking> call = bookingService.addBooking(token, newBooking.getBookingID(), newBooking.getPickup_date(), newBooking.getReturn_date(), newBooking.getPickup_location(), newBooking.getReturn_location(), newBooking.getBooking_status(), newBooking.getTotalPrice(), newBooking.getUser_id(), newBooking.getAdmin_id(), newBooking.getCar_id());
+        Call<Booking> call = bookingService.addBooking(token, newBooking.getBookingID(), newBooking.getPickup_date(), newBooking.getReturn_date(),
+                newBooking.getPickup_location(), newBooking.getReturn_location(), newBooking.getBooking_status(), newBooking.getTotalPrice(),
+                newBooking.getUser_id(), newBooking.getAdmin_id(), newBooking.getCar_id());
 
         call.enqueue(new Callback<Booking>() {
             @Override
