@@ -211,10 +211,10 @@ public class UpdateCarActivity extends AppCompatActivity {
     }
 
     /**
-     * Update book info in database when the user click Update Book button
+     * Update car info in database when the user click Update Car button
      * @param view
      */
-    public void updateBook(View view) {
+    public void updateCar(View view) {
         // get values in form
         String category = txtCategory.getText().toString();
         String seats = txtSeats.getText().toString();
@@ -227,7 +227,7 @@ public class UpdateCarActivity extends AppCompatActivity {
 
         Log.d("MyApp:", "Old Car info: " + car.toString());
 
-        // update the book object retrieved in when populating the form with the new data.
+        // update the car object retrieved in when populating the form with the new data.
         // update all fields excluding the id
         car.setCategory(category);
         car.setSeats(seats);
@@ -237,7 +237,7 @@ public class UpdateCarActivity extends AppCompatActivity {
         car.setPrice(price);
         car.setMileage(mileage);
 
-        Log.d("MyApp:", "New Book info: " + car.toString());
+        Log.d("MyApp:", "New Car info: " + car.toString());
 
         // get user info from SharedPreferences
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
@@ -250,7 +250,7 @@ public class UpdateCarActivity extends AppCompatActivity {
             // Upload image to server if required, or use imageUri to include in request
         }
 
-        // send request to update the book record to the REST API
+        // send request to update the car record to the REST API
         CarService carService = ApiUtils.getCarService();
         Call<Car> call = carService.updateCar(user.getToken(), category, seats,  price, mileage, manufacturer,  model,
                 year, imageName, "available");
@@ -264,7 +264,7 @@ public class UpdateCarActivity extends AppCompatActivity {
 
                 if (response.code() == 200) {
                     // server return success code for update request
-                    // get updated book object from response
+                    // get updated car object from response
                     Car updatedCar = response.body();
 
                     // display message
@@ -304,7 +304,7 @@ public class UpdateCarActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        // end this activity and forward user to BookListActivity
+                        // end this activity and forward user to CarListActivity
                         Intent intent = new Intent(getApplicationContext(), CarListActivity.class);
                         startActivity(intent);
                         finish();
