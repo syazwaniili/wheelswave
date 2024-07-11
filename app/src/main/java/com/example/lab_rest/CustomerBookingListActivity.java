@@ -94,7 +94,7 @@ public class CustomerBookingListActivity extends AppCompatActivity {
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         User user = spm.getUser();
 
-        if ("new".equals(selectedBooking.getBooking_status())) {
+        if ("New".equals(selectedBooking.getBooking_status())) {
             BookingService bookingService = ApiUtils.getBookingService();
             Call<DeleteResponse> call = bookingService.deleteBooking(user.getToken(), selectedBooking.getBookingID());
 
@@ -118,7 +118,7 @@ public class CustomerBookingListActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Toast.makeText(getApplicationContext(), "Only 'new' bookings can be deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Only 'New' bookings can be deleted", Toast.LENGTH_SHORT).show();
         }
     }
 

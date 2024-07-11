@@ -153,21 +153,21 @@ public class BookingListActivity extends AppCompatActivity {
         builder.setTitle("Update Booking Status");
 
         final EditText input = new EditText(this);
-        input.setHint("Enter message");
+        input.setHint("Enter Remarks:");
         builder.setView(input);
 
         builder.setPositiveButton("Approve", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String message = input.getText().toString();
-                updateBookingStatus(booking, "approved", message);
+                updateBookingStatus(booking, "Approved", message);
             }
         });
         builder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String message = input.getText().toString();
-                updateBookingStatus(booking, "rejected", message);
+                updateBookingStatus(booking, "Rejected", message);
             }
         });
         builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {

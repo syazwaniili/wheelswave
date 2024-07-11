@@ -95,7 +95,7 @@ public class NewBookingActivity extends AppCompatActivity {
                 returnDate,
                 etPickupLocation.getText().toString(),
                 etReturnLocation.getText().toString(),
-                "new",
+                "New",
                 totalPrice,
                 user.getId(),
                 carId
