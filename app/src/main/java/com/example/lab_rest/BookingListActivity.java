@@ -119,12 +119,12 @@ public class BookingListActivity extends AppCompatActivity {
         });
     }
 
-    private void updateBookingStatus(Booking selectedBooking, String status, String message) {
+    private void updateBookingStatus(Booking selectedBooking, String booking_status) {
         SharedPrefManager spm = SharedPrefManager.getInstance(getApplicationContext());
         User user = spm.getUser();
 
         BookingService bookingService = ApiUtils.getBookingService();
-        Call<Booking> call = bookingService.updateBookingStatus(user.getToken(), selectedBooking.getBookingID(), status, message);
+        Call<Booking> call = bookingService.updateBookingStatus(user.getToken(), selectedBooking.getBookingID(), booking_status);
 
         call.enqueue(new Callback<Booking>() {
             @Override
@@ -152,24 +152,20 @@ public class BookingListActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Update Booking Status");
 
-        final EditText input = new EditText(this);
-        input.setHint("Enter Remarks:");
-        builder.setView(input);
-
         builder.setPositiveButton("Approve", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String message = input.getText().toString();
-                updateBookingStatus(booking, "Approved", message);
+                updateBookingStatus(booking, "Approved");
             }
         });
+
         builder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String message = input.getText().toString();
-                updateBookingStatus(booking, "Rejected", message);
+                updateBookingStatus(booking, "Rejected");
             }
         });
+
         builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -225,6 +221,7 @@ public class BookingListActivity extends AppCompatActivity {
 
         return super.onContextItemSelected(item);
     }
+
 
     private void doViewDetails(Booking selectedBooking) {
         Log.d("MyApp:", "viewing details: " + selectedBooking.toString());

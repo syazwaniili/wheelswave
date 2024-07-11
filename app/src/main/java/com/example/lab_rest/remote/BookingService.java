@@ -54,11 +54,9 @@ public interface BookingService {
                             @Field("car_id") int car_id);
 
     @FormUrlEncoded
-    @POST("booking/updateStatus/{bookingID}")
+    @POST("booking/{bookingID}")
     Call<Booking> updateBookingStatus(
             @Header("api-key") String apiKey,
             @Path("bookingID") int bookingID,
-            @Field("booking_status") String booking_status,
-            @Field("message") String message);
-
+            @Field("booking_status") String booking_status);
 }
