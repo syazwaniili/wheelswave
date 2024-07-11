@@ -28,10 +28,11 @@
         android:id="@+id/tvModel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvManufacturer"
         android:text="Car Model"
         android:textSize="17sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvManufacturer"
+        app:layout_constraintTop_toTopOf="@+id/tvManufacturer" />
 
     <TextView
         android:id="@+id/tvYear"

@@ -59,4 +59,9 @@ public class CustomerMainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), CustomerCarListActivity.class);
         startActivity(intent);
     }
+
+    public void customerBookingListClicked(View view) {
+        Intent intent = new Intent(getApplicationContext(), CustomerBookingListActivity.class);
+        startActivity(intent);
+    }
 }
