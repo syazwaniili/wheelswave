@@ -11,19 +11,4 @@
         android:id="@+id/rvCustomerCarList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabbook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="Book Car"
-        android:onClick="floatingAddBookingClicked"
-        android:src="@android:drawable/ic_media_play" />
-
 </RelativeLayout>

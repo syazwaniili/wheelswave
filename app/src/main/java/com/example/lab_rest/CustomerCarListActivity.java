@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerCarListActivity extends AppCompatActivity {
+public class CustomerCarListActivity extends AppCompatActivity implements CarAdapter.OnItemClickListener {
 
     private CarService carService;
     private RecyclerView rvCustomerCarList;
@@ -54,14 +54,13 @@ public class CustomerCarListActivity extends AppCompatActivity {
             public void onResponse(Call<List<Car>> call, Response<List<Car>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Car> cars = response.body();
-                    adapter = new CarAdapter(getApplicationContext(), cars, false);
+                    adapter = new CarAdapter(getApplicationContext(), cars, CustomerCarListActivity.this);
                     rvCustomerCarList.setAdapter(adapter);
                     rvCustomerCarList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     rvCustomerCarList.addItemDecoration(new DividerItemDecoration(rvCustomerCarList.getContext(), DividerItemDecoration.VERTICAL));
                 } else {
                     Toast.makeText(getApplicationContext(), "Error fetching cars", Toast.LENGTH_LONG).show();
                     if (response.code() == 401) {
-                        // Invalid token, ask user to relogin
                         Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
                         SharedPrefManager.getInstance(getApplicationContext()).logout();
                         startActivity(new Intent(CustomerCarListActivity.this, LoginActivity.class));
@@ -77,17 +76,12 @@ public class CustomerCarListActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Displaying an alert dialog with a single button
-     * @param message - message to be displayed
-     */
     public void displayAlert(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //do things
                         dialog.cancel();
                     }
                 });
@@ -95,7 +89,18 @@ public class CustomerCarListActivity extends AppCompatActivity {
         alert.show();
     }
 
-    public void clearSessionAndRedirect() {
+    @Override
+    public void onItemClick(int position) {
+        Car selectedCar = adapter.getSelectedItem();
+        if (selectedCar != null) {
+            Intent intent = new Intent(CustomerCarListActivity.this, NewBookingActivity.class);
+            intent.putExtra("car_price", selectedCar.getPrice());
+            intent.putExtra("car_id", selectedCar.getId());
+            startActivity(intent);
+        }
+    }
+
+    /*public void clearSessionAndRedirect() {
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         spm.logout();
 
@@ -130,12 +135,12 @@ public class CustomerCarListActivity extends AppCompatActivity {
         Log.d("MyApp:", "viewing details: " + selectedCar.toString());
         Intent intent = new Intent(getApplicationContext(), CarDetailsActivity.class);
         intent.putExtra("car_id", selectedCar.getId());
-        intent.putExtra("car_price", selectedCar.getPrice()); // Pass car price
+        intent.putExtra("car_price", selectedCar.getPrice());
         startActivity(intent);
     }
 
     public void floatingAddBookingClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), NewBookingActivity.class);
         startActivity(intent);
-    }
+    }*/
 }

@@ -1,138 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:useDefaultMargins="true"
     android:alignmentMode="alignBounds"
     android:id="@+id/main"
-    android:columnOrderPreserved="false"
     android:columnCount="2"
-    android:layout_marginTop="40dp"
-        >
+    android:padding="16dp"
+    tools:context=".NewBookingActivity">
 
     <TextView
         android:layout_columnSpan="2"
         android:layout_gravity="center_horizontal"
         android:text="Add New Booking"
-        android:textSize="32dip" />
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
 
     <TextView
         android:layout_columnSpan="2"
         android:layout_gravity="center"
         android:text="Enter booking information"
-        android:textSize="16dip" />
+        android:textSize="16sp"
+        android:paddingBottom="16dp" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
+    <TextView
+        android:text="Pickup Location:"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+    <EditText
+        android:id="@+id/etPickupLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:hint="Enter Pickup Location"
+        android:padding="8dp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Pickup Location:" />
+    <TextView
+        android:text="Return Location:"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
 
-            <EditText
-                android:id="@+id/etPickupLocation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.75" />
-        </LinearLayout>
+    <EditText
+        android:id="@+id/etReturnLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:hint="Enter Return Location"
+        android:padding="8dp" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+    <TextView
+        android:text="Pickup Date:"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Return Location:" />
+    <EditText
+        android:id="@+id/etPickupDate"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="YYYY-MM-DD"
+        android:padding="8dp" />
 
-            <EditText
-                android:id="@+id/etReturnLocation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.75" />
-        </LinearLayout>
+    <Button
+        android:layout_columnSpan="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Date"
+        android:onClick="showDatePickerDialog"
+        android:tag="pickupDate"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
 
+    <TextView
+        android:text="Return Date:"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
 
+    <EditText
+        android:id="@+id/etReturnDate"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="YYYY-MM-DD"
+        android:padding="8dp" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Pickup Date:" />
+    <Button
+        android:layout_columnSpan="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Date"
+        android:onClick="showDatePickerDialog"
+        android:tag="returnDate"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
 
-            <TextView
-                android:id="@+id/etPickupDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:text="YYYY-MM-DD" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Pick Date"
-                android:layout_weight="0.35"
-                android:onClick="showDatePickerDialog" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Return Date:" />
-
-            <TextView
-                android:id="@+id/etReturnDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:text="YYYY-MM-DD" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Pick Date"
-                android:layout_weight="0.35"
-                android:onClick="showDatePickerDialog" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <Button
-                android:id="@+id/btnSubmitBooking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Submit"
-                android:onClick="addNewBooking"/>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
+    <Button
+        android:id="@+id/btnSubmitBooking"
+        android:layout_columnSpan="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:onClick="addNewBooking"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
 </GridLayout>

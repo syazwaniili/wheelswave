@@ -16,45 +16,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
-        <activity
-            android:name=".BookingListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BookingDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CustomerBookingListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NewBookingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CustomerMainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CustomerCarListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NewCarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CarDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CarListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UpdateCarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <!-- Admin Activities -->
+        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".NewCarActivity" android:exported="false" />
+        <activity android:name=".CarListActivity" android:exported="false" />
+        <activity android:name=".CarDetailsActivity" android:exported="false" />
+        <activity android:name=".UpdateCarActivity" android:exported="false" />
+
+        <!-- Customer Activities -->
+        <activity android:name=".CustomerMainActivity" android:exported="false" />
+        <activity android:name=".CustomerCarListActivity" android:exported="false" />
+        <activity android:name=".CustomerBookingListActivity" android:exported="false" />
+
+        <!-- Shared Activities -->
+        <activity android:name=".BookingListActivity" android:exported="false" />
+        <activity android:name=".BookingDetailsActivity" android:exported="false" />
+        <activity android:name=".NewBookingActivity" android:exported="false" />
+        <activity android:name=".LoginActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

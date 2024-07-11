@@ -34,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CarListActivity extends AppCompatActivity {
+public class CarListActivity extends AppCompatActivity implements CarAdapter.OnItemClickListener {
 
     private CarService carService;
     private RecyclerView rvCarList;
@@ -73,7 +73,7 @@ public class CarListActivity extends AppCompatActivity {
                     //get list of car from response
                     List<Car> cars = response.body();
                     //initialize adapter
-                    adapter = new CarAdapter(getApplicationContext(), cars, true);
+                    adapter = new CarAdapter(getApplicationContext(), cars, CarListActivity.this);
                     //set adapter to RV
                     rvCarList.setAdapter(adapter);
                     //set layout to rv
@@ -97,6 +97,17 @@ public class CarListActivity extends AppCompatActivity {
                 Log.e("MyApp:", t.toString());
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Car selectedCar = adapter.getSelectedItem();
+        if (selectedCar != null) {
+            Intent intent = new Intent(CarListActivity.this, NewBookingActivity.class);
+            intent.putExtra("car_price", selectedCar.getPrice());
+            intent.putExtra("car_id", selectedCar.getId());
+            startActivity(intent);
+        }
     }
 
 

@@ -5,18 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.lab_rest.R;
 import com.example.lab_rest.model.Car;
-
 import java.util.List;
 
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         public TextView tvCategory;
         public TextView tvManufacturer;
@@ -36,9 +32,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
             tvStatus = itemView.findViewById(R.id.tvStatus);
             tvPrice = itemView.findViewById(R.id.tvPrice);
 
-            if (isAdmin) {
-                itemView.setOnLongClickListener(this);
-            }
+            itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -46,35 +41,44 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
             currentPos = getAdapterPosition();
             return false;
         }
+
+        @Override
+        public void onClick(View v) {
+            if (clickListener != null) {
+                clickListener.onItemClick(getAdapterPosition());
+            }
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 
     private List<Car> carListData;
     private Context mContext;
     private int currentPos;
-    private boolean isAdmin;
+    private OnItemClickListener clickListener;
 
-    public CarAdapter(Context context, List<Car> listData, boolean isAdmin) {
+    public CarAdapter(Context context, List<Car> listData, OnItemClickListener listener) {
         carListData = listData;
         mContext = context;
-        this.isAdmin = isAdmin;
+        clickListener = listener;
     }
 
     private Context getmContext() {
         return mContext;
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.car_list_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Car m = carListData.get(position);
         holder.tvCategory.setText(m.getCategory());
         holder.tvManufacturer.setText(m.getManufacturer());

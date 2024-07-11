@@ -26,17 +26,16 @@ public interface BookingService {
 
     @FormUrlEncoded
     @POST("booking")
-    Call<Booking> addBooking(@Header ("api-key") String apiKey, @Body Booking newBooking);
-                            /* @Field("bookingID") int bookingID,
-                            @Field("pickup_date") Date pickup_date,
-                            @Field("return_date") Date return_date,
-                            @Field("pickup_location") String pickup_location,
-                            @Field("return_location") String return_location,
-                            @Field("booking_status") String booking_status,
-                            @Field("totalPrice") double totalPrice,
-                            @Field("user_id") int admin_id,
-                            @Field("admin_id") int user_id,
-                            @Field("car_id") int car_id);*/
+    Call<Booking> addBooking(@Header("api-key") String apiKey,
+                             @Field("pickup_date") String pickup_date,
+                             @Field("return_date") String return_date,
+                             @Field("pickup_location") String pickup_location,
+                             @Field("return_location") String return_location,
+                             @Field("booking_status") String booking_status,
+                             @Field("totalPrice") double totalPrice,
+                             @Field("user_id") int user_id,
+                             @Field("admin_id") int admin_id,
+                             @Field("car_id") int car_id );
 
     /*Call<Booking> addBooking(@Header ("api-key") String apiKey,
                          @Field("bookingID") int bookingID,
