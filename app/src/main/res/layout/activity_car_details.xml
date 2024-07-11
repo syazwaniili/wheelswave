@@ -249,14 +249,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:onClick="carListClicked"
-        android:text="Back" />
 
 
 </GridLayout>

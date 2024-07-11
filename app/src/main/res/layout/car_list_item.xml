@@ -52,7 +52,8 @@
         android:layout_weight="0.25"
         android:text="Year:"
         android:textSize="17sp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvYear"
@@ -75,7 +76,8 @@
         android:layout_weight="0.25"
         android:text="Image:"
         android:textSize="17sp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvImage"
@@ -97,6 +99,7 @@
         android:layout_weight="0.25"
         android:text="Status:"
         android:textSize="17sp"
+        android:textStyle="bold"
         android:textColor="#FFFFFF"/>
 
 
@@ -110,7 +113,8 @@
         android:layout_toEndOf="@+id/tvCarStatus"
         android:text="Available"
         android:textSize="17sp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        />
 
     <TextView
         android:id="@+id/tvCarPrice"
@@ -120,7 +124,8 @@
         android:layout_weight="0.25"
         android:text="Price:       RM"
         android:textSize="17sp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvPrice"
