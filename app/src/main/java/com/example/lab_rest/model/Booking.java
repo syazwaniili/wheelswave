@@ -15,6 +15,10 @@ public class Booking {
     private int admin_id;
     private int car_id;
 
+    public User user;
+    public User admin;
+    public Car car;
+
     public Booking() {
     }
 

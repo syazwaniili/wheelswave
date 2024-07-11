@@ -148,7 +148,7 @@ public class CustomerBookingListActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.booking_context_menu, menu);
+        inflater.inflate(R.menu.customer_booking_context_menu, menu);
     }
 
     @Override

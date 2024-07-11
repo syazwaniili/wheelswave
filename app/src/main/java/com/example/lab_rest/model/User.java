@@ -13,6 +13,11 @@ public class User {
     private int is_active;
     private String secret;
 
+    public User user;
+    public User admin;
+    public Car car;
+    public Booking booking;
+
     public User(int id, String username, String email, String token, String role) {
         this.id = id;
         this.username = username;

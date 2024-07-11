@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:onClick="bookingListClicked"
-        android:text="My Bookings" />
+        android:text="Booking List" />
 
     <Button
         android:id="@+id/btnLogout"

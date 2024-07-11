@@ -12,6 +12,11 @@ public class Car {
     private String image;
     private String status;
 
+    public User user;
+    public User admin;
+    public Car car;
+    public Booking booking;
+
     public Car() {
     }
     //test try  comment pull
