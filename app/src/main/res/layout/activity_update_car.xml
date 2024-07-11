@@ -27,7 +27,7 @@
     <TextView
         android:layout_columnSpan="2"
         android:layout_gravity="center_horizontal"
-        android:text="Update New Car"
+        android:text="Update Car"
         android:textSize="32dip"
         android:textStyle="bold"
         android:translationY="-75dp" />
