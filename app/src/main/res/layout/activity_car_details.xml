@@ -18,6 +18,8 @@
         android:id="@+id/imageView2"
         android:layout_width="55sp"
         android:layout_height="55sp"
+        android:layout_row="0"
+        android:layout_column="0"
         android:layout_margin="20sp"
         android:src="@drawable/wheelswavehomepage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +40,7 @@
             android:padding="10sp"
             android:text="Car Details"
             android:textColor="#5E4B69"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
@@ -101,7 +103,7 @@
             android:fontFamily="@font/poppins_medium"
             android:text="Category"
             android:textSize="20sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             app:layout_constraintStart_toStartOf="@+id/tvModel"
             app:layout_constraintTop_toBottomOf="@+id/tvModel" />
 
@@ -141,9 +143,23 @@
             android:layout_height="33dp"
             android:layout_marginStart="0sp"
             android:fontFamily="@font/poppins_medium_italic"
-            android:text="3000KM/H"
+            android:text="3000"
             android:textSize="20sp"
             android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@+id/IVmileage"
+            app:layout_constraintTop_toTopOf="@+id/IVmileage" />
+
+        <TextView
+            android:id="@+id/tvMileageKM"
+            android:layout_width="105dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="0sp"
+            android:fontFamily="@font/poppins_medium_italic"
+            android:text="KM/H"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:translationX="50sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/IVmileage"
             app:layout_constraintTop_toTopOf="@+id/IVmileage" />
 
@@ -158,14 +174,28 @@
             app:layout_constraintTop_toBottomOf="@+id/IVcarseat" />
 
         <TextView
+            android:id="@+id/tvPriceRM"
+            android:layout_width="114dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="0sp"
+            android:fontFamily="@font/poppins_medium_italic"
+            android:text="RM"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:translationY="20sp"
+            app:layout_constraintStart_toEndOf="@+id/IVprice"
+            app:layout_constraintTop_toTopOf="@+id/IVprice" />
+
+        <TextView
             android:id="@+id/tvPrice"
             android:layout_width="114dp"
             android:layout_height="34dp"
             android:layout_marginStart="0sp"
             android:fontFamily="@font/poppins_medium_italic"
-            android:text="RM1300"
+            android:text="1300"
             android:textSize="20sp"
             android:textStyle="italic"
+            android:translationX="30sp"
             android:translationY="20sp"
             app:layout_constraintStart_toEndOf="@+id/IVprice"
             app:layout_constraintTop_toTopOf="@+id/IVprice" />
@@ -219,7 +249,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:onClick="carListClicked"
+        android:text="Back" />
+
 
 </GridLayout>
-
-
