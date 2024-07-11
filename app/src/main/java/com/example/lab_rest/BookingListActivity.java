@@ -51,11 +51,8 @@ public class BookingListActivity extends AppCompatActivity {
             return insets;
         });
 
-        // get reference to the RecyclerView BookingList
         rvBookingList = findViewById(R.id.rvBookingList);
         registerForContextMenu(rvBookingList);
-
-        // fetch and update car list
         updateRecyclerView();
     }
 
@@ -64,25 +61,20 @@ public class BookingListActivity extends AppCompatActivity {
         User user = spm.getUser();
         String token = user.getToken();
 
-        bookingService = ApiUtils.getBookingService(); //get booking service instance
+        bookingService = ApiUtils.getBookingService();
 
         bookingService.getAllBooking(token).enqueue(new Callback<List<Booking>>() {
             @Override
             public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    //get list of booking from response
                     List<Booking> bookings = response.body();
-                    //initialize adapter
                     adapter = new BookingAdapter(getApplicationContext(), bookings, true);
-                    //set adapter to RV
                     rvBookingList.setAdapter(adapter);
-                    //set layout to rv
                     rvBookingList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     rvBookingList.addItemDecoration(new DividerItemDecoration(rvBookingList.getContext(), DividerItemDecoration.VERTICAL));
                 } else {
-                    Toast.makeText(getApplicationContext(), "Error fetching booking of cars", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error fetching bookings", Toast.LENGTH_LONG).show();
                     if (response.code() == 401) {
-                        // Invalid token, ask user to re-login
                         Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
                         SharedPrefManager.getInstance(getApplicationContext()).logout();
                         startActivity(new Intent(BookingListActivity.this, LoginActivity.class));
@@ -99,50 +91,33 @@ public class BookingListActivity extends AppCompatActivity {
         });
     }
 
-
-    /**
-     * Delete booking record. Called by contextual menu "Delete"
-     * @param selectedBooking - booking selected by user
-     */
     private void doDeleteBooking(Booking selectedBooking) {
-        // get user info from SharedPreferences
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         User user = spm.getUser();
 
-        // prepare REST API call
         BookingService bookingService = ApiUtils.getBookingService();
         Call<DeleteResponse> call = bookingService.deleteBooking(user.getToken(), selectedBooking.getBookingID());
 
-        // execute the call
         call.enqueue(new Callback<DeleteResponse>() {
             @Override
             public void onResponse(Call<DeleteResponse> call, Response<DeleteResponse> response) {
                 if (response.code() == 200) {
-                    // 200 means OK
-                    displayAlert("Booking of a car successfully deleted");
-                    // update data in list view
+                    displayAlert("Booking deleted successfully");
                     updateRecyclerView();
-                }
-                else if (response.code() == 401) {
-                    // invalid token, ask user to relogin
+                } else if (response.code() == 401) {
                     Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
                     clearSessionAndRedirect();
-                }
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
-                    // server return other error
-                    Log.e("MyApp: ", response.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<DeleteResponse> call, Throwable t) {
                 displayAlert("Error [" + t.getMessage() + "]");
-                Log.e("MyApp:", t.getMessage());
             }
         });
     }
-
 
     private void updateBookingStatus(Booking selectedBooking, String status, String message) {
         SharedPrefManager spm = SharedPrefManager.getInstance(getApplicationContext());
@@ -177,12 +152,10 @@ public class BookingListActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Update Booking Status");
 
-        // Set up the input
         final EditText input = new EditText(this);
         input.setHint("Enter message");
         builder.setView(input);
 
-        // Set up the buttons
         builder.setPositiveButton("Approve", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -207,18 +180,12 @@ public class BookingListActivity extends AppCompatActivity {
         builder.show();
     }
 
-
-    /**
-     * Displaying an alert dialog with a single button
-     * @param message - message to be displayed
-     */
     public void displayAlert(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //do things
                         dialog.cancel();
                     }
                 });
@@ -230,10 +197,8 @@ public class BookingListActivity extends AppCompatActivity {
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         spm.logout();
 
-        //terminate mainActivity
-        //finish();
+        finish();
 
-        //forward to login page
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
@@ -241,7 +206,7 @@ public class BookingListActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.booking_context_menu, menu);
+        inflater.inflate(R.menu.booking_context_menu, menu);
     }
 
     @Override
@@ -249,15 +214,11 @@ public class BookingListActivity extends AppCompatActivity {
         Booking selectedBooking = adapter.getSelectedItem();
         Log.d("MyApp", "selected " + selectedBooking.toString());
 
-        //user clicked details contextual menu
         if (item.getItemId() == R.id.menu_details) {
             doViewDetails(selectedBooking);
-        }
-        else if (item.getItemId() == R.id.menu_delete) {
-            // user clicked the delete contextual menu
+        } else if (item.getItemId() == R.id.menu_delete) {
             doDeleteBooking(selectedBooking);
-        }
-        else if (item.getItemId() == R.id.menu_update_status) {
+        } else if (item.getItemId() == R.id.menu_update_status) {
             showUpdateStatusDialog(selectedBooking);
             return true;
         }
@@ -265,26 +226,10 @@ public class BookingListActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    /*private void doUpdateCar(Booking selectedBooking) {
-        Log.d("My App:", "update car: " + selectedBooking.toString());
-        //forward user to UpdateBookingActivity, passing the selected car id
-        Intent intent = new Intent(getApplicationContext(), UpdateBookingActivity.class);
-        intent.putExtra("bookingID", selectedBooking.getBookingID());
-        startActivity(intent);
-    }*/
-
     private void doViewDetails(Booking selectedBooking) {
         Log.d("MyApp:", "viewing details: " + selectedBooking.toString());
-        // forward user to CarDetailsActivity, passing the selected car id
         Intent intent = new Intent(getApplicationContext(), BookingDetailsActivity.class);
         intent.putExtra("bookingID", selectedBooking.getBookingID());
         startActivity(intent);
     }
-
-    public void floatingAddCarClicked(View view) {
-        Intent intent = new Intent(getApplicationContext(), NewCarActivity.class);
-        startActivity(intent);
-    }
 }
-
-

@@ -128,9 +128,9 @@ public class CustomerCarListActivity extends AppCompatActivity {
 
     private void doViewDetails(Car selectedCar) {
         Log.d("MyApp:", "viewing details: " + selectedCar.toString());
-        // forward user to CarDetailsActivity, passing the selected car id
         Intent intent = new Intent(getApplicationContext(), CarDetailsActivity.class);
         intent.putExtra("car_id", selectedCar.getId());
+        intent.putExtra("car_price", selectedCar.getPrice()); // Pass car price
         startActivity(intent);
     }
 

@@ -50,11 +50,8 @@ public class CustomerBookingListActivity extends AppCompatActivity {
             return insets;
         });
 
-        // get reference to the RecyclerView CustomerBookingList
         rvCustomerBookingList = findViewById(R.id.rvCustomerBookingList);
         registerForContextMenu(rvCustomerBookingList);
-
-        // fetch and update booking list
         updateRecyclerView();
     }
 
@@ -63,25 +60,20 @@ public class CustomerBookingListActivity extends AppCompatActivity {
         User user = spm.getUser();
         String token = user.getToken();
 
-        bookingService = ApiUtils.getBookingService(); //get booking service instance
+        bookingService = ApiUtils.getBookingService();
 
         bookingService.getAllBooking(token).enqueue(new Callback<List<Booking>>() {
             @Override
             public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    //get list of booking from response
                     List<Booking> bookings = response.body();
-                    //initialize adapter
                     adapter = new BookingAdapter(getApplicationContext(), bookings, false);
-                    //set adapter to RV
                     rvCustomerBookingList.setAdapter(adapter);
-                    //set layout to rv
                     rvCustomerBookingList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     rvCustomerBookingList.addItemDecoration(new DividerItemDecoration(rvCustomerBookingList.getContext(), DividerItemDecoration.VERTICAL));
                 } else {
-                    Toast.makeText(getApplicationContext(), "Error fetching booking of cars", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error fetching bookings", Toast.LENGTH_LONG).show();
                     if (response.code() == 401) {
-                        // Invalid token, ask user to re-login
                         Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
                         SharedPrefManager.getInstance(getApplicationContext()).logout();
                         startActivity(new Intent(CustomerBookingListActivity.this, LoginActivity.class));
@@ -98,11 +90,6 @@ public class CustomerBookingListActivity extends AppCompatActivity {
         });
     }
 
-
-    /**
-     * Delete booking record. Called by contextual menu "Delete"
-     * @param selectedBooking - booking selected by user
-     */
     private void doDeleteBooking(Booking selectedBooking) {
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         User user = spm.getUser();
@@ -134,17 +121,13 @@ public class CustomerBookingListActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Only 'new' bookings can be deleted", Toast.LENGTH_SHORT).show();
         }
     }
-    /**
-     * Displaying an alert dialog with a single button
-     * @param message - message to be displayed
-     */
+
     public void displayAlert(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //do things
                         dialog.cancel();
                     }
                 });
@@ -156,10 +139,8 @@ public class CustomerBookingListActivity extends AppCompatActivity {
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         spm.logout();
 
-        //terminate mainActivity
-        //finish();
+        finish();
 
-        //forward to login page
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
@@ -167,7 +148,7 @@ public class CustomerBookingListActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.booking_context_menu, menu);
+        inflater.inflate(R.menu.booking_context_menu, menu);
     }
 
     @Override
@@ -175,34 +156,17 @@ public class CustomerBookingListActivity extends AppCompatActivity {
         Booking selectedBooking = adapter.getSelectedItem();
         Log.d("MyApp", "selected " + selectedBooking.toString());
 
-        //user clicked details contextual menu
         if (item.getItemId() == R.id.menu_details) {
             doViewDetails(selectedBooking);
-        }
-        else if (item.getItemId() == R.id.menu_delete) {
-            // user clicked the delete contextual menu
+        } else if (item.getItemId() == R.id.menu_delete) {
             doDeleteBooking(selectedBooking);
         }
-
-        /*else if (item.getItemId() == R.id.menu_update) {
-            // user clicked the update contextual menu
-            doUpdateCar(selectedBooking);
-        }*/
 
         return super.onContextItemSelected(item);
     }
 
-    /*private void doUpdateCar(Booking selectedBooking) {
-        Log.d("My App:", "update car: " + selectedBooking.toString());
-        //forward user to UpdateBookingActivity, passing the selected car id
-        Intent intent = new Intent(getApplicationContext(), UpdateBookingActivity.class);
-        intent.putExtra("bookingID", selectedBooking.getBookingID());
-        startActivity(intent);
-    }*/
-
     private void doViewDetails(Booking selectedBooking) {
         Log.d("MyApp:", "viewing details: " + selectedBooking.toString());
-        // forward user to CarDetailsActivity, passing the selected car id
         Intent intent = new Intent(getApplicationContext(), BookingDetailsActivity.class);
         intent.putExtra("bookingID", selectedBooking.getBookingID());
         startActivity(intent);
@@ -212,7 +176,4 @@ public class CustomerBookingListActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), NewBookingActivity.class);
         startActivity(intent);
     }
-
 }
-
-
