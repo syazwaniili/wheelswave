@@ -105,8 +105,7 @@ public class NewBookingActivity extends AppCompatActivity {
         newBooking.setCar_id(carId);
 
         bookingService = ApiUtils.getBookingService();
-        Call<Booking> call = bookingService.addBooking(token, sdf.format(pickup_date), sdf.format(return_date), etPickupLocation.getText().toString(), etReturnLocation.getText().toString(), "new", totalPrice, newBooking.getUser_id(), newBooking.getAdmin_id(), carId);
-
+        Call<Booking> call = bookingService.addBooking(token, sdf.format(pickup_date), sdf.format(return_date), etPickupLocation.getText().toString(), etReturnLocation.getText().toString(), "new", totalPrice, newBooking.getUser_id(), carId);
         call.enqueue(new Callback<Booking>() {
             @Override
             public void onResponse(Call<Booking> call, Response<Booking> response) {
