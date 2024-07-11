@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Booking ID"
-            android:textColor="#553566"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
         </LinearLayout>
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:text="Car ID"
             android:textStyle="bold"
-            android:textColor="#553566"/>
+            android:textColor="#FFFFFF"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -85,7 +85,8 @@
                 android:id="@+id/tvPickup_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pickup Date" />
+                android:text="Pickup Date"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
 
         <LinearLayout
@@ -105,7 +106,8 @@
                 android:id="@+id/tvReturn_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Return Date" />
+                android:text="Return Date"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -133,7 +135,8 @@
                 android:id="@+id/tvPickup_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pickup Location" />
+                android:text="Pickup Location"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
 
         <LinearLayout
@@ -153,7 +156,8 @@
                 android:id="@+id/tvReturn_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Return Location" />
+                android:text="Return Location"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -182,6 +186,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Booking Status"
+                android:textColor="#FFFFFF"
                 android:textStyle="bold"/>
         </LinearLayout>
 
@@ -203,6 +208,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total Price"
+                android:textColor="#FFFFFF"
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
@@ -231,7 +237,8 @@
                 android:id="@+id/tvUser_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User ID" />
+                android:text="User ID"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
 
         <LinearLayout
@@ -251,7 +258,8 @@
                 android:id="@+id/tvAdmin_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Admin ID" />
+                android:text="Admin ID"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 
