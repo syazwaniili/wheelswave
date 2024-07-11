@@ -10,24 +10,26 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="175dp"
-        android:layout_height="163dp"
+        android:layout_width="133dp"
+        android:layout_height="103dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="591dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="630dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         card_view:srcCompat="@drawable/wheelswavehomepage"
         tools:layout_editor_absoluteY="-28dp" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCarList"
         android:layout_width="match_parent"
-        android:layout_height="594dp"
+        android:layout_height="630dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="1dp" />
+        android:layout_marginBottom="0dp"
+        android:padding="10dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
