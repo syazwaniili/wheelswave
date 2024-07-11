@@ -73,7 +73,7 @@ public class BookingListActivity extends AppCompatActivity {
                     //get list of booking from response
                     List<Booking> bookings = response.body();
                     //initialize adapter
-                    adapter = new BookingAdapter(getApplicationContext(), bookings);
+                    adapter = new BookingAdapter(getApplicationContext(), bookings, true);
                     //set adapter to RV
                     rvBookingList.setAdapter(adapter);
                     //set layout to rv

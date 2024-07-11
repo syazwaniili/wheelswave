@@ -54,7 +54,7 @@ public class CustomerBookingListActivity extends AppCompatActivity {
         rvCustomerBookingList = findViewById(R.id.rvCustomerBookingList);
         registerForContextMenu(rvCustomerBookingList);
 
-        // fetch and update car list
+        // fetch and update booking list
         updateRecyclerView();
     }
 
@@ -72,7 +72,7 @@ public class CustomerBookingListActivity extends AppCompatActivity {
                     //get list of booking from response
                     List<Booking> bookings = response.body();
                     //initialize adapter
-                    adapter = new BookingAdapter(getApplicationContext(), bookings);
+                    adapter = new BookingAdapter(getApplicationContext(), bookings, false);
                     //set adapter to RV
                     rvCustomerBookingList.setAdapter(adapter);
                     //set layout to rv
@@ -134,9 +134,6 @@ public class CustomerBookingListActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Only 'new' bookings can be deleted", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
     /**
      * Displaying an alert dialog with a single button
      * @param message - message to be displayed
@@ -211,8 +208,8 @@ public class CustomerBookingListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void floatingAddCarClicked(View view) {
-        Intent intent = new Intent(getApplicationContext(), NewCarActivity.class);
+    public void floatingAddBookingClicked(View view) {
+        Intent intent = new Intent(getApplicationContext(), NewBookingActivity.class);
         startActivity(intent);
     }
 

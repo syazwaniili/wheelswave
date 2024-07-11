@@ -26,6 +26,4 @@
         android:onClick="floatingAddBookingClicked"
         android:src="@android:drawable/ic_media_play" />
 
-
-
 </RelativeLayout>

@@ -44,8 +44,10 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
             tvAdmin_id = itemView.findViewById(R.id.tvAdmin_id);
             tvCar_id = itemView.findViewById(R.id.tvCar_id);
 
-            itemView.setOnLongClickListener(this);  //register long click action to this viewholder instance
+            if(isAdmin) { itemView.setOnLongClickListener(this);}
+             //register long click action to this viewholder instance
         }
+
 
         @Override
         public boolean onLongClick(View v) {
@@ -58,11 +60,13 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
     // adapter class definitions
     private List<Booking> bookingListData;   // list of booking objects
     private Context mContext;       // activity context
-    private int currentPos;         // currently selected item (long press)
+    private int currentPos;
+    private boolean isAdmin;// currently selected item (long press)
 
-    public BookingAdapter(Context context, List<Booking> listData) {
+    public BookingAdapter(Context context, List<Booking> listData, boolean isAdmin) {
         bookingListData = listData;
         mContext = context;
+        this.isAdmin=isAdmin;
     }
 
     private Context getmContext() {
