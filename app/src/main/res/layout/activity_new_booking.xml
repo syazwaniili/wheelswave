@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_weight="1"
+        android:inputType="none"
         android:clickable="true"
         android:focusable="false"
         android:hint="YYYY-MM-DD"
@@ -72,11 +73,12 @@
 
     <Button
         android:layout_columnSpan="2"
+        android:id="@+id/btnPickupDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pick Date"
         android:onClick="showDatePickerDialog"
-        android:tag="pickupDate"
+        android:tag="pickup_date"
         android:textColor="@android:color/white"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
@@ -92,6 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_weight="1"
+        android:inputType="none"
         android:clickable="true"
         android:focusable="false"
         android:hint="YYYY-MM-DD"
@@ -99,11 +102,12 @@
 
     <Button
         android:layout_columnSpan="2"
+        android:id="@+id/btnReturnDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pick Date"
         android:onClick="showDatePickerDialog"
-        android:tag="returnDate"
+        android:tag="return_date"
         android:textColor="@android:color/white"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>

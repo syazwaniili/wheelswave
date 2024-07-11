@@ -38,11 +38,10 @@ public class NewBookingActivity extends AppCompatActivity {
 
     private BookingService bookingService;
     private EditText etPickupDate, etReturnDate, etPickupLocation, etReturnLocation;
-    private Button btnSubmitBooking;
+    private Button btnSubmitBooking, btnPickupDate, btnReturnDate;
     private double carPrice;
     private int carId;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,17 +58,17 @@ public class NewBookingActivity extends AppCompatActivity {
         etPickupLocation = findViewById(R.id.etPickupLocation);
         etReturnLocation = findViewById(R.id.etReturnLocation);
         btnSubmitBooking = findViewById(R.id.btnSubmitBooking);
+        btnPickupDate = findViewById(R.id.btnPickupDate);
+        btnReturnDate = findViewById(R.id.btnReturnDate);
 
         Intent intent = getIntent();
         carPrice = intent.getDoubleExtra("car_price", 0);
         carId = intent.getIntExtra("car_id", -1);
 
-        btnSubmitBooking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addNewBooking();
-            }
-        });
+        btnSubmitBooking.setOnClickListener(v -> addNewBooking());
+
+        btnPickupDate.setOnClickListener(this::showDatePickerDialog);
+        btnReturnDate.setOnClickListener(this::showDatePickerDialog);
     }
 
     public void addNewBooking() {
@@ -80,8 +79,8 @@ public class NewBookingActivity extends AppCompatActivity {
         String token = user.getToken();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date pickup_date = null;
-        Date return_date = null;
+        Date pickup_date;
+        Date return_date;
         try {
             pickup_date = sdf.parse(etPickupDate.getText().toString());
             return_date = sdf.parse(etReturnDate.getText().toString());
@@ -119,7 +118,7 @@ public class NewBookingActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Log.e("NewBookingActivity", "Error: " + response.message());
+                    Log.e("NewBookingActivity", "Error: " + response.message() + " Code: " + response.code());
                     Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -132,12 +131,7 @@ public class NewBookingActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Date picker fragment class
-     * Reference: https://developer.android.com/guide/topics/ui/controls/pickers
-     */
     public void showDatePickerDialog(View view) {
-        // Determine which button was clicked by using the tag
         final String tag = (String) view.getTag();
         final EditText editText;
 
@@ -149,23 +143,16 @@ public class NewBookingActivity extends AppCompatActivity {
             return;
         }
 
-        // Get the current date to set as the default date in the picker
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Create a new DatePickerDialog instance
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                // Format the date as yyyy-MM-dd and set it on the EditText
-                String selectedDate = String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
-                editText.setText(selectedDate);
-            }
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view1, year1, monthOfYear, dayOfMonth) -> {
+            String selectedDate = String.format("%04d-%02d-%02d", year1, monthOfYear + 1, dayOfMonth);
+            editText.setText(selectedDate);
         }, year, month, day);
 
-        // Show the DatePickerDialog
         datePickerDialog.show();
     }
 }
