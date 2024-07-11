@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="2dp"
-    android:padding="10dp">
+    android:padding="20dp"
+    android:background="@drawable/custom_edittext">
 
     <TextView
         android:id="@+id/tvCategory"
@@ -13,7 +14,8 @@
         android:layout_alignParentTop="true"
         android:text="Car Category"
         android:textSize="17sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#553566"/>
 
     <TextView
         android:id="@+id/tvManufacturer"
@@ -21,52 +23,142 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvCategory"
         android:text="Car Manufacturer"
+        android:textColor="#553566"
         android:textSize="17sp"
         android:textStyle="bold" />
+
 
     <TextView
         android:id="@+id/tvModel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvManufacturer"
+        android:layout_below="@+id/tvCategory"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvManufacturer"
         android:text="Car Model"
         android:textSize="17sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvManufacturer"
+        app:layout_constraintTop_toTopOf="@+id/tvManufacturer"
+        android:textColor="#553566"/>
+
+    <TextView
+        android:id="@+id/tvCarYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvManufacturer"
+        android:layout_weight="0.25"
+        android:text="Year:"
+        android:textSize="17sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvModel"
-        android:text="Car Year"
+        android:layout_alignTop="@+id/tvCarYear"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvCarYear"
+        android:text="2024"
         android:textSize="17sp"
-        android:textStyle="bold" />
+        android:textStyle="normal"
+        android:textColor="#FFFFFF"/>
 
     <TextView
-        android:id="@+id/tvImage"
+        android:id="@+id/tvCarSeats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvYear"
-        android:text="Car Image"
+        android:layout_below="@+id/tvCarYear"
+        android:layout_weight="0.25"
+        android:text="Seats:"
         android:textSize="17sp"
-        android:textStyle="bold" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvSeats"
+        android:layout_width="113dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvCarYear"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="23dp"
+        android:layout_toEndOf="@+id/tvCarSeats"
+        android:text="6"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tvCarMileage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCarSeats"
+        android:layout_weight="0.25"
+        android:text="Mileage:"
+        android:textSize="17sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvMileage"
+        android:layout_width="113dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvCarMileage"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvCarMileage"
+        android:text="62020KM/H"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tvCarStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCarMileage"
+        android:layout_weight="0.25"
+        android:text="Status:"
+        android:textSize="17sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
+
 
     <TextView
         android:id="@+id/tvStatus"
+        android:layout_width="113dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvCarStatus"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvCarStatus"
+        android:text="Available"
+        android:textSize="17sp"
+        android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/tvCarPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvImage"
-        android:text="Car Status"
+        android:layout_below="@+id/tvCarStatus"
+        android:layout_weight="0.25"
+        android:text="Price:        RM"
         android:textSize="17sp"
-        android:textStyle="bold" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
+        android:layout_width="113dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvStatus"
-        android:text="Car Price"
+        android:layout_alignTop="@+id/tvCarPrice"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvCarPrice"
+        android:text="1800.00"
         android:textSize="17sp"
-        android:textStyle="bold" />
+        android:textColor="#FFFFFF"/>
+
 
 </RelativeLayout>
