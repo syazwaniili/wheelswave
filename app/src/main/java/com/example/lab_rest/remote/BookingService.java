@@ -43,8 +43,8 @@ public interface BookingService {
     @POST("booking/{bookingID}")
     Call<Car> updateBooking(@Header ("api-key") String apiKey,
                             @Field("bookingID") int bookingID,
-                            @Field("pickup_date") Date pickup_date,
-                            @Field("return_date") Date seats,
+                            @Field("pickup_date") String pickup_date,
+                            @Field("return_date") String return_date,
                             @Field("pickup_location") String pickup_location,
                             @Field("return_location") String return_location,
                             @Field("booking_status") String booking_status,

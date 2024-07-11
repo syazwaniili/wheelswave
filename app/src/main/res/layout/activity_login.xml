@@ -48,6 +48,7 @@
                 android:orientation="vertical"
                 android:padding="24dp">
 
+
                 <TextView
                     android:id="@+id/loginText"
                     android:layout_width="match_parent"
@@ -59,7 +60,6 @@
                     android:textColor="#FFFFFF"
                     android:textSize="36sp"
                     android:textStyle="bold" />
-
 
                 <EditText
                     android:id="@+id/edtUsername"

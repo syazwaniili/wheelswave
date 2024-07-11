@@ -5,8 +5,8 @@ import java.util.Date;
 public class Booking {
 
     private int bookingID;
-    private Date pickup_date;
-    private Date return_date;
+    private String pickup_date;
+    private String return_date;
     private String pickup_location;
     private String return_location;
     private String booking_status;
@@ -18,7 +18,7 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(int bookingID, Date pickup_date, Date return_date, String pickup_location, String return_location, String booking_status, double totalPrice, int user_id , int admin_id, int car_id) {
+    public Booking(int bookingID, String pickup_date, String return_date, String pickup_location, String return_location, String booking_status, double totalPrice, int user_id , int admin_id, int car_id) {
         this.bookingID = bookingID;
         this.pickup_date = pickup_date;
         this.return_date = return_date;
@@ -39,19 +39,19 @@ public class Booking {
         this.bookingID = bookingID;
     }
 
-    public Date getPickup_date() {
+    public String getPickup_date() {
         return pickup_date;
     }
 
-    public void setPickup_date(Date pickup_date) {
+    public void setPickup_date(String pickup_date) {
         this.pickup_date = pickup_date;
     }
 
-    public Date getReturn_date() {
+    public String getReturn_date() {
         return return_date;
     }
 
-    public void setReturn_date(Date return_date) {
+    public void setReturn_date(String return_date) {
         this.return_date = return_date;
     }
 

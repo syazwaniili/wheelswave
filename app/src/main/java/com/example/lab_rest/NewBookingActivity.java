@@ -2,21 +2,18 @@ package com.example.lab_rest;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.DialogFragment;
 
 import com.example.lab_rest.model.Booking;
 import com.example.lab_rest.model.User;
@@ -24,11 +21,8 @@ import com.example.lab_rest.remote.ApiUtils;
 import com.example.lab_rest.remote.BookingService;
 import com.example.lab_rest.sharedpref.SharedPrefManager;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,34 +72,35 @@ public class NewBookingActivity extends AppCompatActivity {
         User user = spm.getUser();
         String token = user.getToken();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date pickup_date;
-        Date return_date;
+        String pickupDate = etPickupDate.getText().toString();
+        String returnDate = etReturnDate.getText().toString();
+
+        long diff = 0;
         try {
-            pickup_date = sdf.parse(etPickupDate.getText().toString());
-            return_date = sdf.parse(etReturnDate.getText().toString());
-        } catch (ParseException e) {
+            diff = new SimpleDateFormat("yyyy-MM-dd").parse(returnDate).getTime() -
+                    new SimpleDateFormat("yyyy-MM-dd").parse(pickupDate).getTime();
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Invalid date format. Use yyyy-MM-dd", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        long diff = return_date.getTime() - pickup_date.getTime();
         long diffDays = diff / (24 * 60 * 60 * 1000);
         double totalPrice = diffDays * carPrice;
 
-        Booking newBooking = new Booking();
-        newBooking.setPickup_date(pickup_date);
-        newBooking.setReturn_date(return_date);
-        newBooking.setPickup_location(etPickupLocation.getText().toString());
-        newBooking.setReturn_location(etReturnLocation.getText().toString());
-        newBooking.setBooking_status("new");
-        newBooking.setTotalPrice(totalPrice);
-        newBooking.setUser_id(user.getId());
-        newBooking.setCar_id(carId);
-
         bookingService = ApiUtils.getBookingService();
-        Call<Booking> call = bookingService.addBooking(token, sdf.format(pickup_date), sdf.format(return_date), etPickupLocation.getText().toString(), etReturnLocation.getText().toString(), "new", totalPrice, newBooking.getUser_id(), carId);
+        Call<Booking> call = bookingService.addBooking(
+                token,
+                pickupDate,
+                returnDate,
+                etPickupLocation.getText().toString(),
+                etReturnLocation.getText().toString(),
+                "new",
+                totalPrice,
+                user.getId(),
+                carId
+        );
+
         call.enqueue(new Callback<Booking>() {
             @Override
             public void onResponse(Call<Booking> call, Response<Booking> response) {

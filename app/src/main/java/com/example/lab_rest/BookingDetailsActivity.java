@@ -89,8 +89,8 @@ public class BookingDetailsActivity extends AppCompatActivity {
 
         // Set values
         tvBookingID.setText(String.valueOf(booking.getBookingID()));
-        tvPickup_date.setText(String.valueOf(booking.getPickup_date()));
-        tvReturn_date.setText(String.valueOf(booking.getReturn_date()));
+        tvPickup_date.setText(booking.getPickup_date());
+        tvReturn_date.setText(booking.getReturn_date());
         tvPickup_location.setText(booking.getPickup_location());
         tvReturn_location.setText(booking.getReturn_location());
         tvBookingstatus.setText(booking.getBooking_status());
