@@ -38,7 +38,7 @@ import retrofit2.Response;
 
 public class UpdateCarActivity extends AppCompatActivity {
 
-    // form fields  
+    // form fields
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageViewCar;
     private EditText txtCategory;
@@ -62,7 +62,12 @@ public class UpdateCarActivity extends AppCompatActivity {
             return insets;
         });
 
-        // get view objects references
+        //retrieve car id from intent
+        // get car id sent by CarListActivity, -1 if not found
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("car_id", -1);
+
+        // get references to the form fields in layout
         txtCategory = findViewById(R.id.txtCategory);
         txtSeats = findViewById(R.id.txtSeats);
         txtPrice = findViewById(R.id.txtPrice);
@@ -70,6 +75,59 @@ public class UpdateCarActivity extends AppCompatActivity {
         txtManufacturer = findViewById(R.id.txtManufacturer);
         txtModel = findViewById(R.id.txtModel);
         txtYear = findViewById(R.id.txtYear);
+
+        //retrieve car info from database using the car id
+        // get user info from SharedPreferences
+        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
+        User user = spm.getUser();
+
+        //get car service instance
+        CarService carService = ApiUtils.getCarService();
+
+        //execute the API query. Send the token and car id
+        carService.getCar(user.getToken(), id).enqueue(new Callback<Car>() {
+            @Override
+            public void onResponse(Call<Car> call, Response<Car> response) {
+                // for debug purpose
+                Log.d("My App:", "Update Form Populate Response: " + response.raw().toString());
+
+                if (response.code() == 200) {
+                    // server return success
+                    // get car object from response
+                    car = response.body();
+
+
+                    // set values into forms
+                    txtCategory.setText(car.getCategory());
+                    txtSeats.setText(car.getSeats());
+                    txtPrice.setText(String.valueOf(car.getPrice())); // Convert double to String
+                    txtMileage.setText(String.valueOf(car.getMileage()));
+                    txtManufacturer.setText(car.getManufacturer());
+                    txtModel.setText(car.getModel());
+                    txtYear.setText(car.getYear());
+                }
+
+                else if (response.code() == 401) {
+                    //unauthorized error. invalid token, ask user to relogin
+                    Toast.makeText(getApplicationContext(), "Invalid session. Please login again:", Toast.LENGTH_LONG).show();
+                    clearSessionAndRedirect();
+                }
+
+                else {
+                    // server return other error
+                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
+                    Log.e("My App: ", response.toString());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Car> call, Throwable t) {
+                Toast.makeText(null, "Error connecting", Toast.LENGTH_LONG).show();
+            }
+
+        });
+
 
         // Initialize ImageView and Button
         imageViewCar = findViewById(R.id.imageViewCar);
@@ -147,20 +205,26 @@ public class UpdateCarActivity extends AppCompatActivity {
      * @param view
      */
     public void updateCar(View view) {
-        // get values in form
+        // Get values in form
         String category = txtCategory.getText().toString();
         String seats = txtSeats.getText().toString();
         String manufacturer = txtManufacturer.getText().toString();
         String model = txtModel.getText().toString();
         String year = txtYear.getText().toString();
-        double price = Double.parseDouble(txtPrice.getText().toString());
-        int mileage = Integer.parseInt(txtMileage.getText().toString());
+        double price;
+        int mileage;
 
+        try {
+            price = Double.parseDouble(txtPrice.getText().toString());
+            mileage = Integer.parseInt(txtMileage.getText().toString());
+        } catch (NumberFormatException e) {
+            Toast.makeText(getApplicationContext(), "Invalid number format", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         Log.d("MyApp:", "Old Car info: " + car.toString());
 
-        // update the car object retrieved in when populating the form with the new data.
-        // update all fields excluding the id
+        // Update the car object retrieved when populating the form with the new data
         car.setCategory(category);
         car.setSeats(seats);
         car.setManufacturer(manufacturer);
@@ -171,7 +235,7 @@ public class UpdateCarActivity extends AppCompatActivity {
 
         Log.d("MyApp:", "New Car info: " + car.toString());
 
-        // get user info from SharedPreferences
+        // Get user info from SharedPreferences
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         User user = spm.getUser();
 
@@ -182,49 +246,58 @@ public class UpdateCarActivity extends AppCompatActivity {
             // Upload image to server if required, or use imageUri to include in request
         }
 
-        // send request to update the car record to the REST API
+        // Send request to update the car record to the REST API
         CarService carService = ApiUtils.getCarService();
-        Call<Car> call = carService.updateCar(user.getToken(), category, seats,  price, mileage, manufacturer,  model,
-                year, imageName, "available");
-        // execute
+        Call<Car> call = carService.updateCar(
+                user.getToken(),
+                car.getId(),
+                car.getCategory(),
+                car.getSeats(),
+                car.getPrice(),
+                car.getMileage(),
+                car.getManufacturer(),
+                car.getModel(),
+                car.getYear(),
+                car.getImage(),
+                car.getStatus()
+        );
+
+        // Execute
         call.enqueue(new Callback<Car>() {
             @Override
             public void onResponse(Call<Car> call, Response<Car> response) {
-
-                // for debug purpose
+                // For debug purpose
                 Log.d("MyApp:", "Update Request Response: " + response.raw().toString());
 
                 if (response.code() == 200) {
-                    // server return success code for update request
-                    // get updated car object from response
+                    // Server return success code for update request
+                    // Get updated car object from response
                     Car updatedCar = response.body();
 
-                    // display message
+                    // Display message
                     displayUpdateSuccess(updatedCar.getManufacturer() + " updated successfully.");
 
-
-                }
-                else if (response.code() == 401) {
-                    // unauthorized error. invalid token, ask user to relogin
+                } else if (response.code() == 401) {
+                    // Unauthorized error. invalid token, ask user to relogin
                     Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
                     clearSessionAndRedirect();
-                }
-                else {
-                    // server return other error
+                } else {
+                    // Server return other error
                     Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
                     Log.e("MyApp: ", response.toString());
                 }
-
             }
 
             @Override
             public void onFailure(Call<Car> call, Throwable t) {
                 displayAlert("Error [" + t.getMessage() + "]");
-                // for debug purpose
+                // For debug purpose
                 Log.d("MyApp:", "Error: " + t.getCause().getMessage());
             }
         });
     }
+
+
     /**
      * Displaying an alert dialog with a single button
      * @param message - message to be displayed
@@ -266,3 +339,4 @@ public class UpdateCarActivity extends AppCompatActivity {
         alert.show();
     }
 }
+

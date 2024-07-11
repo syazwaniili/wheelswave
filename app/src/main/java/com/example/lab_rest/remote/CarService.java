@@ -12,6 +12,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface CarService {
@@ -24,7 +25,7 @@ public interface CarService {
 
     @FormUrlEncoded
     @POST("car")
-    Call<Car> addCar(@Header ("api-key") String apiKey,
+    Call<Car> addCar(@Header("api-key") String apiKey,
                      @Field("category") String category,
                      @Field("seats") String seats,
                      @Field("price") double price,
@@ -36,11 +37,12 @@ public interface CarService {
                      @Field("status") String status);
 
     @DELETE("car/{id}")
-    Call<DeleteResponse> deleteCar(@Header ("api-key") String apiKey, @Path("id") int id);
+    Call<DeleteResponse> deleteCar(@Header("api-key") String apiKey, @Path("id") int id);
 
     @FormUrlEncoded
     @POST("car/{id}")
-    Call<Car> updateCar(@Header ("api-key") String apiKey,
+    Call<Car> updateCar(@Header("api-key") String apiKey,
+                        @Path("id") int id,
                         @Field("category") String category,
                         @Field("seats") String seats,
                         @Field("price") double price,
