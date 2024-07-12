@@ -76,9 +76,16 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         holder.tvReturn_location.setText(b.getReturn_location());
         holder.tvBookingstatus.setText(b.getBooking_status());
         holder.tvTotalprice.setText(String.valueOf(b.getTotalPrice()));
-        holder.tvUser_id.setText(String.valueOf(b.getUser_id()));
-        holder.tvAdmin_id.setText(String.valueOf(b.getAdmin_id()));
-        holder.tvCar_id.setText(String.valueOf(b.getCar_id()));
+        holder.tvUser_id.setText(String.valueOf(b.getUser().getUsername()));
+
+        if (b.getAdmin()!= null){
+            holder.tvAdmin_id.setText(String.valueOf(b.getAdmin().getUsername()));
+        }
+        else {
+            holder.tvAdmin_id.setText(String.valueOf("No Admin"));
+        }
+
+        holder.tvCar_id.setText(String.valueOf(b.getCar().getModel()));
     }
 
     @Override
